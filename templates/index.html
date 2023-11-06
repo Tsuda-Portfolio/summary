@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="d-flex justify-content-center align-items-end" style="height: 50vh">
+  <div class="container text-center">
+    <p>要約したいほうをクリック</p>
+    <div class="d-flex justify-content-between">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-lg"
+        onclick="location.href='http://127.0.0.1:5000/Bloomberg_summary'"
+      >
+        Bloomberg
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-lg"
+        onclick="location.href='http://127.0.0.1:5000/yahoo_summary'"
+      >
+        Yahoo!News
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

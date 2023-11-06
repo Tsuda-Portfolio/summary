@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block content %}
+<div>
+  <p style="font-size: 20px; margin: 20px">要約したいほうをクリック</p>
+  <button
+    type="button"
+    class="btn btn-outline-secondary btn-lg"
+    style="margin: 20px"
+    onclick="location.href='http://127.0.0.1:5000/Bloomberg_summary'"
+  >
+    Bloomberg
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-secondary btn-lg"
+    style="margin: 20px"
+    onclick="location.href='http://127.0.0.1:5000//yahoo_summary'"
+  >
+    Yahoo!News
+  </button>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card-body">
+        {% for news_summary in yahoo_summary_data %}
+        <div class="card border-secondary mb-3">
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <p>News-number&nbsp;:&emsp;{{ news_summary['article_num'] }}</p>
+                <p>
+                  News-URL <br />
+                  <a href="{{ news_summary['article_URL'] }}"
+                    >{{ news_summary['article_URL'] }}</a
+                  >
+                </p>
+                <p>News-Date&nbsp;:&emsp;{{ news_summary['article_date'] }}</p>
+                <p>
+                  News-Title&nbsp;:&emsp;{{ news_summary['article_title'] }}
+                </p>
+                <p>
+                  News-Summary <br />
+                  {{ news_summary['article_summary']}}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
