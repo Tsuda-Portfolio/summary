@@ -18,6 +18,7 @@ Flask-Migrate
 Flask-SQLAlchemy
 Flask-WTF
 greenlet
+gunicorn
 h11
 idna
 itsdangerous
