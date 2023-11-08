@@ -1,4 +1,5 @@
 import os
+from os.path import join, dirname
 from dotenv import load_dotenv
 
 from bs4 import BeautifulSoup
@@ -203,7 +204,9 @@ def en_to_ja_summary(TEXT, LIMIT):
 
     ##### ----------日本語に翻訳---------- #####
 
-    load_dotenv()
+    dotenv_path = join(dirname(__file__), '.env')
+
+    load_dotenv(dotenv_path)
 
     DEEPL_API_KEY = os.environ["DEEPL_API_KEY"]
 
@@ -449,3 +452,5 @@ def yahoonews_summary(COUNT, LIMIT):
 
         if i == COUNT or i == 8:
             return yahoo_news_list
+
+print(en_to_ja_summary('hello', 0.3))
