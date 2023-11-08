@@ -361,10 +361,10 @@ def yahoonews_summary(COUNT, LIMIT):
         article_soup = BeautifulSoup(article_response.content, "lxml")
 
         # もっと見る
-        more_articles = article_soup.select_one("p.sc-cXlOVI > a")
+        more_articles = article_soup.select_one("p.sc-biJonm > a")
 
         # URLを作成
-        more_article_url = more_articles.get("href")
+        more_article_url = article.get("href")
 
         # 記事のリクエスト要求
         more_article_response = requests.get(more_article_url)
@@ -395,7 +395,7 @@ def yahoonews_summary(COUNT, LIMIT):
 
         # 記事の解析が取得できるか
         if not article_contain:
-            article_date = "記事の内容が取得できませんでした．"
+            all_sentence = "記事の内容が取得できませんでした．"
         else:
             article_contain = article_contain[0].text
 
@@ -437,7 +437,7 @@ def yahoonews_summary(COUNT, LIMIT):
                 "article_URL": more_article_url,
                 "article_date": article_date,
                 "article_title": article_title,
-                "article_summary": all_sentence,
+                "article_summary": all_sentence
             }
         )
 
