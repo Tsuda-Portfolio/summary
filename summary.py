@@ -333,8 +333,12 @@ def ja_to_en_summary(TEXT, LIMIT):
 # ----------ヤフーニュースの要約---------- #
 def yahoonews_summary(COUNT, LIMIT):
 
+    # LIMITをfloat型に修正する
     LIMIT = float(LIMIT)
+
+    # COUNTをint型に修正する
     COUNT = int(COUNT)
+    
     # yahoonewsのURL
     url = "https://news.yahoo.co.jp/"
 
@@ -360,11 +364,11 @@ def yahoonews_summary(COUNT, LIMIT):
         # 解析
         article_soup = BeautifulSoup(article_response.content, "lxml")
 
-        # もっと見る
-        more_articles = article_soup.select_one("p.sc-biJonm > a")
+        # 記事全文を読む
+        more_articles = article_soup.select_one("p.sc-dyBVLV > a")
 
         # URLを作成
-        more_article_url = article.get("href")
+        more_article_url = more_articles.get("href")
 
         # 記事のリクエスト要求
         more_article_response = requests.get(more_article_url)
@@ -388,7 +392,7 @@ def yahoonews_summary(COUNT, LIMIT):
         if article_title:
             article_title = article_title[0].text
         else:
-            article_date = "記事タイトルが取得できませんでした．"
+            article_title = "記事タイトルが取得できませんでした．"
 
         # 記事の内容の解析
         article_contain = more_article_soup.select(".sc-gDyJDg > p")
@@ -440,6 +444,8 @@ def yahoonews_summary(COUNT, LIMIT):
                 "article_summary": all_sentence
             }
         )
+
+        print(yahoo_news_list)
 
         if i == COUNT or i == 8:
             return yahoo_news_list
