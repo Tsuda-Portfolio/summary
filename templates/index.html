@@ -1,25 +1,29 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <div class="d-flex justify-content-center align-items-end" style="height: 50vh">
-  <div class="container text-center">
-    <p>要約したいほうをクリック</p>
-    <div class="d-flex justify-content-between">
-      <button
-        type="button"
-        class="btn btn-outline-secondary btn-lg"
-        onclick="location.href='http://127.0.0.1:5000/Bloomberg_summary'"
-      >
-        Bloomberg
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-secondary btn-lg"
-        onclick="location.href='http://127.0.0.1:5000/yahoo_summary'"
-      >
-        Yahoo!News
-      </button>
+    <div class="container text-center">
+        <p>要約したいほうをクリック</p>
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary btn-lg"
+                onclick="location.href='http://127.0.0.1:5000/ja_summary'">
+                JA
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-lg"
+                onclick="location.href='http://127.0.0.1:5000/en_to_ja_summary'">
+                EN→JA
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-lg"
+                onclick="location.href='http://127.0.0.1:5000/ja_to_en_summary'">
+                JA→EN
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-lg"
+                onclick="location.href='http://127.0.0.1:5000/yahoonews'">
+                YAHOO!NEWS
+            </button>
+        </div>
     </div>
-  </div>
 </div>
 
 {% endblock %}
