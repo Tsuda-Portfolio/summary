@@ -11,6 +11,10 @@
                 JA
             </button>
             <button type="button" class="btn btn-outline-secondary btn-lg"
+                onclick="location.href='https://summary-web.onrender.com/en_summary'">
+                EN
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-lg"
                 onclick="location.href='https://summary-web.onrender.com/en_to_ja_summary'">
                 EN→JA
             </button>
@@ -22,6 +26,36 @@
                 onclick="location.href='https://summary-web.onrender.com/yahoonews'">
                 YAHOO!NEWS
             </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card-body">
+                {% for news in home_News %}
+                <div class="card border-secondary mb-3">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <p>
+                                    News-URL <br />
+                                    <a href="{{ news['url'] }}">{{ news['url'] }}</a>
+                                </p>
+                                <p><img src="{{news['image_url']}}" alt="代替テキスト" style="max-width: 100%; height: auto;"></p>
+                                <p>
+                                    News-Title&nbsp;:&emsp;{{ news['title'] | safe}}
+                                </p>
+                                <p>
+                                    News-Summary <br />
+                                    {{ news['content']}}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
