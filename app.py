@@ -15,14 +15,15 @@ def index():
 # 日本語要約のHTML
 @app.route("/ja_summary", methods=["GET", "POST"])
 def japanese():
+    home_News = home_news()
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
         japanese_summary = ja_summary(TEXT, LIMIT)
-        return render_template("ja_summary.html", japanese_summary=japanese_summary)
+        return render_template("ja_summary.html", japanese_summary=japanese_summary, home_News=home_News)
     # GETのとき
-    return render_template("ja_summary.html")
+    return render_template("ja_summary.html", home_News=home_News)
 
 
 # 英語要約のHTML

@@ -2,62 +2,65 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-center align-items-end" style="height: 50vh">
-    <div class="container text-center">
-        <p>要約したいほうをクリック</p>
-        <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-outline-secondary btn-lg"
-                onclick="location.href='https://summary-web.onrender.com/ja_summary'">
-                JA
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg"
-                onclick="location.href='https://summary-web.onrender.com/en_summary'">
-                EN
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg"
-                onclick="location.href='https://summary-web.onrender.com/en_to_ja_summary'">
-                EN→JA
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg"
-                onclick="location.href='https://summary-web.onrender.com/ja_to_en_summary'">
-                JA→EN
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg"
-                onclick="location.href='https://summary-web.onrender.com/yahoonews'">
-                YAHOO!NEWS
-            </button>
-        </div>
-    </div>
-</div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card-body">
-                {% for news in home_News %}
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <p>
-                                    News-URL <br />
-                                    <a href="{{ news['url'] }}">{{ news['url'] }}</a>
-                                </p>
-                                <p><img src="{{news['image_url']}}" alt="代替テキスト" style="max-width: 100%; height: auto;"></p>
-                                <p>
-                                    News-Title&nbsp;:&emsp;{{ news['title'] | safe}}
-                                </p>
-                                <p>
-                                    News-Summary <br />
-                                    {{ news['content']}}
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                {% endfor %}
+    <div class="row mt-3">
+        <div class="col-sm-12 col-lg-10 offset-lg-1">
+            <div>
+                <h2 style="padding: 20px 0 50px 0;"><i class="fa fa-cut fa-lg"></i> 文章を自動要約する
+                </h2>
+            </div>
+            <p style="font-size: large;">要約したい言語をクリックしてください。<br></p>
+        </div>
+        <div class="mt-5">
+            <div class="d-flex flex-wrap justify-content-center">
+                <button type="button" class="btn btn-outline-secondary m-2"
+                    onclick="location.href='https://summary-web.onrender.com/ja_summary'">日本語</button>
+                <button type="button" class="btn btn-outline-secondary m-2"
+                    onclick="location.href='https://summary-web.onrender.com/en_summary'">英語</button>
+                <button type="button" class="btn btn-outline-secondary m-2"
+                    onclick="location.href='https://summary-web.onrender.com/en_to_ja_summary'">英語→日本語</button>
+                <button type="button" class="btn btn-outline-secondary m-2"
+                    onclick="location.href='https://summary-web.onrender.com/ja_to_en_summary'">日本語→英語</button>
+                <button type="button" class="btn btn-outline-secondary m-2"
+                    onclick="location.href='https://summary-web.onrender.com/yahoonews'">YAHOO!NEWS</button>
             </div>
         </div>
     </div>
+
+    <!-- ここに余白を追加 -->
+    <div style="margin-bottom: 300px;"></div>
+
+    <div class="row mt-3">
+        <div class="col-sm-12 col-lg-1"></div>
+        <div class="col-sm-12 col-lg-10">
+            <h2 style="padding: 10px 0;"><i class="fa fa-star fa-lg"></i> 人気ニュースの要約例</h2>
+            <p> <br>人気のニュースをダイジェストとして表示しています。 </p>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" style="width: 60px;">順位</th>
+                        <th scope="col"></th>
+                        <th scope="col">タイトル・ダイジェスト文</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for news in home_News %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td><img src="{{ news['image_url'] }}" width="100" alt="thumbnail"
+                                onerror="this.src='/no_img.jpg'">
+                        </td>
+                        <td style="word-break: break-all;">
+                            <h6><a href="{{ news['url'] }}" target="_blank">{{ news['title'] }}</a></h6>
+                            {{ news['content'] }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 
 {% endblock %}
