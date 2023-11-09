@@ -20,7 +20,6 @@ Flask-WTF
 greenlet
 gunicorn
 h11
-html
 idna
 itsdangerous
 Jinja2
