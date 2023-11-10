@@ -29,14 +29,15 @@ def japanese():
 # 英語要約のHTML
 @app.route("/en_summary", methods=["GET", "POST"])
 def english():
+    home_News = home_news()
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
         english_summary = en_summary(TEXT, LIMIT)
-        return render_template("en_summary.html", english_summary=english_summary)
+        return render_template("en_summary.html", english_summary=english_summary, home_News=home_News)
     # GETのとき
-    return render_template("en_summary.html")
+    return render_template("en_summary.html", home_News=home_News)
 
 
 # 英語から日本語要約のHTML
@@ -81,6 +82,12 @@ def yahoo():
         return render_template("yahoonews.html", yahoo_summary_data=yahoo_summary_data)
     # GETのとき
     return render_template("yahoonews.html")
+
+
+# 404エラーハンドリング
+@app.errorhandler(404)
+def page_not_found(e):
+    return '<h1>Error</h1>', 404
 
 
 if __name__ == "__main__":
