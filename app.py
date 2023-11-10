@@ -64,7 +64,7 @@ def En_to_Ja():
 
 
 # 日本語から英語要約のHTML
-@app.route("/Ja_to_en", methods=["GET", "POST"])
+@app.route("/Ja_to_En", methods=["GET", "POST"])
 def Ja_to_En():
     # POSTのとき
     if request.method == "POST":
