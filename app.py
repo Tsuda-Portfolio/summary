@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request
-from summary import ja_summary, en_summary, en_to_ja_summary, ja_to_en_summary, yahoonews_summary, home_news, search_news
+from Ja import Ja_summary
+from En import En_summary
+from Ja_En import Ja_to_En_summary
+from En_Ja import En_to_Ja_summary
+from Yahoo import Yahoo
 
 
 app = Flask(__name__)
@@ -7,87 +11,72 @@ app = Flask(__name__)
 
 # HomeのHTML
 @app.route("/")
-def index():
-    home_News = home_news()
-    return render_template("index.html", home_News=home_News)
+def home():
+    Yahoo_News = Yahoo()
+    return render_template("index.html", Yahoo_News=Yahoo_News)
 
 
 # 日本語要約のHTML
-@app.route("/ja_summary", methods=["GET", "POST"])
-def japanese():
-    home_News = home_news()
+@app.route("/Ja", methods=["GET", "POST"])
+def Japanese():
+    Yahoo_News = Yahoo()
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
-        japanese_summary = ja_summary(TEXT, LIMIT)
-        return render_template("ja_summary.html", japanese_summary=japanese_summary, home_News=home_News)
+        Japanese_summary = Ja_summary(TEXT, LIMIT)
+        return render_template(
+            "Ja.html", Japanese_summary=Japanese_summary, Yahoo_News=Yahoo_News
+        )
     # GETのとき
-    return render_template("ja_summary.html", home_News=home_News)
+    return render_template("Ja.html", Yahoo_News=Yahoo_News)
 
 
 # 英語要約のHTML
-@app.route("/en_summary", methods=["GET", "POST"])
-def english():
-    home_News = home_news()
+@app.route("/En", methods=["GET", "POST"])
+def English():
+    Yahoo_News = Yahoo()
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
-        english_summary = en_summary(TEXT, LIMIT)
-        return render_template("en_summary.html", english_summary=english_summary, home_News=home_News)
+        English_summary = En_summary(TEXT, LIMIT)
+        return render_template(
+            "En.html", English_summary=English_summary, Yahoo_News=Yahoo_News
+        )
     # GETのとき
-    return render_template("en_summary.html", home_News=home_News)
+    return render_template("En.html", Yahoo_News=Yahoo_News)
 
 
 # 英語から日本語要約のHTML
-@app.route("/en_to_ja_summary", methods=["GET", "POST"])
-def en_to_ja():
+@app.route("/En_to_Ja", methods=["GET", "POST"])
+def En_to_Ja():
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
-        english_to_ja_summary = en_to_ja_summary(TEXT, LIMIT)
+        English_to_Japanese_summary = En_to_Ja_summary(TEXT, LIMIT)
         return render_template(
-            "en_to_ja_summary.html", english_to_ja_summary=english_to_ja_summary
+            "En_to_Ja.html", English_to_Japanese_summary=English_to_Japanese_summary
         )
     # GETのとき
-    return render_template("en_to_ja_summary.html")
+    return render_template("en_to_Ja.html")
 
 
 # 日本語から英語要約のHTML
-@app.route("/ja_to_en_summary", methods=["GET", "POST"])
-def ja_to_en():
+@app.route("/Ja_to_en", methods=["GET", "POST"])
+def Ja_to_En():
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
-        japanese_to_english_summary = ja_to_en_summary(TEXT, LIMIT)
+        Japanese_to_English_summary = Ja_to_En_summary(TEXT, LIMIT)
         return render_template(
-            "ja_to_en_summary.html",
-            japanese_to_english_summary=japanese_to_english_summary,
+            "Ja_to_En.html",
+            Japanese_to_English_summary=Japanese_to_English_summary,
         )
     # GETのとき
-    return render_template("ja_to_en_summary.html")
-
-
-# Yahoo!News要約のHTML
-@app.route("/yahoonews", methods=["GET", "POST"])
-def yahoo():
-    # POSTのとき
-    if request.method == "POST":
-        COUNT = request.form["count"]
-        LIMIT = request.form["limit"]
-        yahoo_summary_data = yahoonews_summary(COUNT, LIMIT)
-        return render_template("yahoonews.html", yahoo_summary_data=yahoo_summary_data)
-    # GETのとき
-    return render_template("yahoonews.html")
-
-
-# 404エラーハンドリング
-@app.errorhandler(404)
-def page_not_found(e):
-    return '<h1>Error</h1>', 404
+    return render_template("Ja_to_En.html")
 
 
 if __name__ == "__main__":
