@@ -497,9 +497,10 @@ def home_news():
             title = html.escape(article['title'])
             # URL
             url = html.escape(article['url'])
-            # 画像のURL
-            image_url = html.escape(article['urlToImage'])
-
+            if article['urlToImage'] is not None:
+                image_url = html.escape(article['urlToImage'])
+            else:
+                image_url = '画像の取得に失敗しました。'
             if article['description'] is not None:
                 # 記事の内容
                 content = html.escape(article['description'])
