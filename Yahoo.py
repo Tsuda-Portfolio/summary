@@ -28,7 +28,7 @@ def Yahoo(COUNT=7, LIMIT=0.3):
     soup_1 = BeautifulSoup(response.content, "lxml")
 
     # 記事を取得
-    articles = soup_1.select("li.sc-fHCHyC > a")
+    articles = soup_1.select("li.sc-1nhdoj2-0 > a")
 
     for i, article in enumerate(articles, start=1):
         # URLを作成
@@ -41,7 +41,7 @@ def Yahoo(COUNT=7, LIMIT=0.3):
         article_soup = BeautifulSoup(article_response.content, "lxml")
 
         # 記事全文を読む
-        more_articles = article_soup.select_one("p.sc-dyBVLV > a")
+        more_articles = article_soup.select_one("div.sc-gdv5m1-8 > a")
 
         # URLを作成
         more_article_url = more_articles.get("href")
@@ -53,7 +53,7 @@ def Yahoo(COUNT=7, LIMIT=0.3):
         more_article_soup = BeautifulSoup(more_article_response.content, "lxml")
 
         # 時間の解析
-        article_date = more_article_soup.select("p.sc-gSiFqf > time")
+        article_date = more_article_soup.select("p.sc-uzx6gd-4 > time")
 
         # 時間が取得できるか
         if article_date:
@@ -72,7 +72,7 @@ def Yahoo(COUNT=7, LIMIT=0.3):
             article_title = "記事タイトルが取得できませんでした．"
 
         # 画像の解析
-        article_image = more_article_soup.select(".dpVko > picture > img")
+        article_image = more_article_soup.select(".sc-1z2z0a-0 > picture > img")
 
         # 画像が取得できるか
         if article_image:
@@ -81,7 +81,7 @@ def Yahoo(COUNT=7, LIMIT=0.3):
             article_image = "画像が取得できませんでした．"
 
         # 記事の内容の解析
-        article_contain = more_article_soup.select(".sc-gDyJDg > p")
+        article_contain = more_article_soup.select(".sc-zniwbk-0 > p")
 
         # 記事の解析が取得できるか
         if not article_contain:
