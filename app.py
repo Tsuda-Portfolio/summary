@@ -19,33 +19,31 @@ def home():
 # 日本語要約のHTML
 @app.route("/Ja", methods=["GET", "POST"])
 def Japanese():
-    Yahoo_News = Yahoo()
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
         Japanese_summary = Ja_summary(TEXT, LIMIT)
         return render_template(
-            "Ja.html", Japanese_summary=Japanese_summary, Yahoo_News=Yahoo_News
+            "Ja.html", Japanese_summary=Japanese_summary
         )
     # GETのとき
-    return render_template("Ja.html", Yahoo_News=Yahoo_News)
+    return render_template("Ja.html")
 
 
 # 英語要約のHTML
 @app.route("/En", methods=["GET", "POST"])
 def English():
-    Yahoo_News = Yahoo()
     # POSTのとき
     if request.method == "POST":
         TEXT = request.form["keyword"]
         LIMIT = request.form["limit"]
         English_summary = En_summary(TEXT, LIMIT)
         return render_template(
-            "En.html", English_summary=English_summary, Yahoo_News=Yahoo_News
+            "En.html", English_summary=English_summary
         )
     # GETのとき
-    return render_template("En.html", Yahoo_News=Yahoo_News)
+    return render_template("En.html")
 
 
 # 英語から日本語要約のHTML
