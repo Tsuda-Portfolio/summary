@@ -60,7 +60,7 @@ def En_to_Ja():
             "En_to_Ja.html", English_to_Japanese_summary=English_to_Japanese_summary
         )
     # GETのとき
-    return render_template("en_to_Ja.html")
+    return render_template("En_to_Ja.html")
 
 
 # 日本語から英語要約のHTML

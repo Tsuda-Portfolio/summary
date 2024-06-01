@@ -14,31 +14,27 @@
     </div>
     <div class="row mt-5">
         <div class="col-sm-12 col-lg-10 offset-lg-1">
-            <form action="/Ja_to_En" method="post">
+            <form action="/En_to_Ja" method="post">
                 <div class="form-group text-center">
                     <label for="exampleFormControlTextarea1" style="padding: 10px;">テキストの入力</label>
-                    <textarea maxlength="10000" class="form-control" id="keyword" name="keyword"
-                        id="exampleFormControlTextarea1" rows="6"></textarea>
+                    <textarea maxlength="10000" class="form-control" id="keyword" name="keyword" rows="6"></textarea>
                 </div>
                 <div class="actions text-center">
                     <label for="numberInput" style="padding: 15px;">要約の度合い</label>
-                    <input type="number" id="numberInput" name="limit" class="form-control text-center" min="0" max="1" step="0.1"
-                        required style="width: 120px; margin: 0 auto;">
+                    <input type="number" id="numberInput" name="limit" class="form-control text-center" min="0" max="1" step="0.1" required style="width: 120px; margin: 0 auto;">
                 </div>
                 <div class="actions text-center" style="padding: 50px;">
-                    <input type="submit" name="commit" value="要約" class="btn btn-info btn-lg"
-                        data-disable-with="要約">
+                    <input type="submit" name="commit" value="要約" class="btn btn-info btn-lg" data-disable-with="要約">
                 </div>
             </form>
         </div>
     </div>
 
-
     <!-- 要約結果 -->
     <div style="margin-bottom: 300px;">
         <div class="row mt-5">
             <div class="col-sm-12 col-lg-10 offset-lg-1">
-                {% for summary in Japanese_to_English_summary %}
+                {% for summary in English_to_Japanese_summary %}
                 <!-- 元のテキストの文章量と要約後のテキストの文章量のカード -->
                 <div class="card border-secondary mb-3">
                     <div class="card-body">
@@ -71,36 +67,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ニュース
-    <div class="row mt-3">
-        <div class="col-sm-12 col-lg-1"></div>
-        <div class="col-sm-12 col-lg-10">
-            <h2 style="padding: 10px 0;"><i class="fa fa-star fa-lg"></i> 人気ニュースの要約例</h2>
-            <p> <br>最新のニュースをダイジェストとして表示しています。 <br> </p>
-            <table class="table table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col" style="width: 60px;">番号</th>
-                        <th scope="col"></th>
-                        <th scope="col">タイトル・ダイジェスト文</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for news in Yahoo_News %}
-                    <tr>
-                        <th scope="row">{{ loop.index }}</th>
-                        <td><img src="{{ news['article_image'] }}" width="100" alt="thumbnail">
-                        </td>
-                        <td style="word-break: break-all;">
-                            <h6><a href="{{ news['article_URL'] }}" target="_blank">{{ news['article_title'] }}</a></h6>
-                            {{ news['article_summary'] }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div> -->
 </div>
+
 {% endblock %}

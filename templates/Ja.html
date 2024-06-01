@@ -33,32 +33,19 @@
         </div>
     </div>
 
-
     <!-- 要約結果 -->
-    <div style="margin-bottom: 300px;">
+    <div style="margin-bottom: 100px;">
         <div class="row mt-5">
             <div class="col-sm-12 col-lg-10 offset-lg-1">
                 {% for summary in Japanese_summary %}
-                <!-- 元のテキストの文章量と要約後のテキストの文章量のカード -->
+                <!-- 要約結果のカード -->
                 <div class="card border-secondary mb-3">
+                    <div class="card-header">要約結果</div>
                     <div class="card-body">
+                        <p class="card-text">{{ summary['summary'] }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <p>元のテキストの文章量&nbsp;&emsp;{{ summary['original_text_len'] }}</p>
-                                <p>要約後のテキストの文章量&nbsp;&emsp;{{ summary['summary_text_len'] }}</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 要約結果のみのカード -->
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <p>要約結果</p>
-                                <p>{{ summary['summary'] }}</p>
-                            </li>
+                            <li class="list-group-item">元のテキストの文章量: {{ summary['original_text_len'] }}</li>
+                            <li class="list-group-item">要約後のテキストの文章量: {{ summary['summary_text_len'] }}</li>
                         </ul>
                     </div>
                 </div>
@@ -66,36 +53,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ニュース -->
-    <!-- <div class="row mt-3">
-        <div class="col-sm-12 col-lg-1"></div>
-        <div class="col-sm-12 col-lg-10">
-            <h2 style="padding: 10px 0;"><i class="fa fa-star fa-lg"></i> 人気ニュースの要約例</h2>
-            <p> <br>最新のニュースをダイジェストとして表示しています。 <br> </p>
-            <table class="table table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col" style="width: 60px;">番号</th>
-                        <th scope="col"></th>
-                        <th scope="col">タイトル・ダイジェスト文</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for news in Yahoo_News %}
-                    <tr>
-                        <th scope="row">{{ loop.index }}</th>
-                        <td><img src="{{ news['article_image'] }}" width="100" alt="thumbnail">
-                        </td>
-                        <td style="word-break: break-all;">
-                            <h6><a href="{{ news['article_URL'] }}" target="_blank">{{ news['article_title'] }}</a></h6>
-                            {{ news['article_summary'] }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div> -->
 </div>
+
 {% endblock %}
