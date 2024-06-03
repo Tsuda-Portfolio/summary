@@ -8,7 +8,7 @@ from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
 
 
 # ----------ヤフーニュースの要約(API使用なし)---------- #
-def Yahoo(COUNT=3, LIMIT=0.3):
+def Yahoo(COUNT=2, LIMIT=0.3):
     # LIMITをfloat型に修正する
     LIMIT = float(LIMIT)
 
