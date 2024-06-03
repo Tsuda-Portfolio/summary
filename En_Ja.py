@@ -91,7 +91,7 @@ def En_to_Ja_summary(TEXT, LIMIT=0.5):
     summary.append(
         {
             "original_text_len": original_text_len,
-            "summary_text_len": En_summary_text_len,
+            "En_summary_text_len": En_summary_text_len,
             "Ja_summary_text_len": Ja_summary_text_len,
             "En_summary": En_summary,
             "Ja_summary": Ja_summary,
