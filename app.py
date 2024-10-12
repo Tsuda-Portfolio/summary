@@ -3,7 +3,7 @@ from Ja import Ja_summary
 from En import En_summary
 from Ja_En import Ja_to_En_summary
 from En_Ja import En_to_Ja_summary
-from Yahoo import Yahoo
+from ITmedia import ITmedia
 
 
 app = Flask(__name__)
@@ -12,8 +12,8 @@ app = Flask(__name__)
 # HomeのHTML
 @app.route("/")
 def home():
-    Yahoo_News = Yahoo()
-    return render_template("index.html", Yahoo_News=Yahoo_News)
+    Itmedia = ITmedia()
+    return render_template("index.html", Itmedia=Itmedia)
 
 
 # 日本語要約のHTML
