@@ -51,8 +51,7 @@ def En_summary(TEXT, LIMIT=0.5):
 
     # 出力
     for sentence in result_dict2["summarize_result"]:
-        summary += sentence
-        summary = "".join(summary.split())
+        summary += sentence + " "  # スペースを追加
 
     # 要約文から改行を取り除く
     summary_without_newlines = summary.replace("\n", "")
