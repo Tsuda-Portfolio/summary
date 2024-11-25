@@ -1,41 +1,38 @@
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 from pysummarization.nlp_base import NlpBase
-from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
-from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 
 
 # ----------英語の文章の要約(要約の度合いを決めれる)---------- #
 def En_summary(TEXT, LIMIT=0.5):
+
     # LIMITをfloat型に修正する
     LIMIT = float(LIMIT)
 
     # 空のリストを用意
     En_summary = []
 
-    # 元の文章の長さ
-    original_text_len = len(TEXT)
-
-    # NLPオブジェクト
+    # NLPオブジェクトの初期化
     nlp_base = NlpBase()
 
-    # トークナイザー設定（MeCab使用）
-    nlp_base.tokenizable_doc = MeCabTokenizer()
+    # トークナイザー設定（SimpleTokenizer使用）
+    nlp_base.tokenizable_doc = SimpleTokenizer()
 
-    # 類似性フィルター
-    similarity_filter = TfIdfCosine()
+    # 区切り文字設定
+    nlp_base.delimiter_list = [".", "\n"]
 
-    # NLPオブジェクト設定
-    similarity_filter.nlp_base = nlp_base
+    # 元の文章の文のリスト
+    sentence_list = nlp_base.listup_sentence(TEXT)
 
-    # 類似性limit：limit超える文は切り捨て
-    similarity_filter.similarity_limit = LIMIT
+    # 元の文章の文の数
+    num_sentences = len(sentence_list)
 
     # 自動要約のオブジェクト
     auto_abstractor = AutoAbstractor()
 
-    # トークナイザー設定（MeCab使用）
-    auto_abstractor.tokenizable_doc = MeCabTokenizer()
+    # トークナイザー設定（SimpleTokenizer使用）
+    auto_abstractor.tokenizable_doc = SimpleTokenizer()
 
     # 区切り文字設定
     auto_abstractor.delimiter_list = [".", "\n"]
@@ -43,22 +40,27 @@ def En_summary(TEXT, LIMIT=0.5):
     # 抽象化&フィルタリングオブジェクト
     abstractable_doc = TopNRankAbstractor()
 
-    # 文書要約（similarity_filter機能追加）
-    result_dict2 = auto_abstractor.summarize(TEXT, abstractable_doc, similarity_filter)
+    # 要約の文の数を設定
+    abstractable_doc.top_n = max(1, int(num_sentences * LIMIT))
+
+    # 文書要約（similarity_filter機能は一旦無効化）
+    result_dict2 = auto_abstractor.summarize(TEXT, abstractable_doc)
 
     # 空白の文字列を用意
     summary = ""
 
-    # 出力
+    # 出力する
     for sentence in result_dict2["summarize_result"]:
-        summary += sentence + " "  # スペースを追加
+        summary += sentence.strip() + " "
 
-    # 要約文から改行を取り除く
-    summary_without_newlines = summary.replace("\n", "")
+    # 要約文から余分な空白を取り除く
+    summary = " ".join(summary.split())
 
-    # 要約後の文章の長さ
-    summary_text_len = len(summary_without_newlines)
+    # 元の文章と要約後の文章の単語数
+    original_text_len = len(TEXT.split())
+    summary_text_len = len(summary.split())
 
+    # リスト型を使う
     En_summary.append(
         {
             "original_text_len": original_text_len,
