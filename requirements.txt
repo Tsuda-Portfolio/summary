@@ -27,7 +27,7 @@ joblib
 lxml
 Mako
 MarkupSafe
-mecab-python3
+mecab-python3==1.0.4
 nltk
 numpy
 outcome
