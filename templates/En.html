@@ -16,9 +16,8 @@
         <div class="col-sm-12 col-lg-10 offset-lg-1">
             <form action="/En" method="post">
                 <div class="form-group text-center">
-                    <label for="exampleFormControlTextarea1" style="padding: 10px;">テキストの入力</label>
-                    <textarea maxlength="10000" class="form-control" id="keyword" name="keyword"
-                        id="exampleFormControlTextarea1" rows="6"></textarea>
+                    <label for="keyword" style="padding: 10px;">テキストの入力</label>
+                    <textarea maxlength="10000" class="form-control" id="keyword" name="keyword" rows="6"></textarea>
                 </div>
                 <div class="actions text-center">
                     <label for="numberInput" style="padding: 15px;">要約の度合い</label>
@@ -33,20 +32,28 @@
         </div>
     </div>
 
+    <!-- エラーメッセージの表示 -->
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
 
     <!-- 要約結果 -->
     <div style="margin-bottom: 300px;">
         <div class="row mt-5">
             <div class="col-sm-12 col-lg-10 offset-lg-1">
-                {% for summary in English_summary %}
-                <!-- 元のテキストの文章量と要約後のテキストの文章量のカード -->
+                {% if English_summary %}
+                <!-- 元のテキストの文章量と要約後の文章量のカード -->
                 <div class="card border-secondary mb-3">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <p>元のテキストの文章量&nbsp;&emsp;{{ summary['original_text_len'] }}</p>
-                                <p>要約後のテキストの文章量&nbsp;&emsp;{{ summary['summary_text_len'] }}</p>
-                            </li>
+                                <p>元のテキストの文字数&nbsp;&emsp;{{ English_summary.original_text_len }}</p>
+                                <p>元のテキストの単語数&nbsp;&emsp;{{ English_summary.original_word_count }}</p>
+                                <p>要約後の文字数&nbsp;&emsp;{{ English_summary.summary_text_len }}</p>
+                                <p>要約後の単語数&nbsp;&emsp;{{ English_summary.summary_word_count }}</p>
+                            </li>                            
                         </ul>
                     </div>
                 </div>
@@ -57,12 +64,12 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <p>要約結果</p>
-                                <p>{{ summary['summary'] }}</p>
+                                <p>{{ English_summary.summary }}</p>
                             </li>
                         </ul>
                     </div>
                 </div>
-                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
