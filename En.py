@@ -57,14 +57,14 @@ def En_summary(TEXT, LIMIT=0.5):
     summary = " ".join(summary.split())
 
     # 元の文章と要約後の文章の単語数
-    original_word_count = len(TEXT.split())
-    summary_word_count = len(summary.split())
+    original_text_len = len(TEXT.split())
+    summary_text_len = len(summary.split())
 
     # リスト型を使う
     En_summary.append(
         {
-            "original_word_count": original_word_count,  # 元の文章の単語数
-            "summary_word_count": summary_word_count,    # 要約後の単語数
+            "original_text_len": original_text_len,
+            "summary_text_len": summary_text_len,
             "summary": summary,
         }
     )
